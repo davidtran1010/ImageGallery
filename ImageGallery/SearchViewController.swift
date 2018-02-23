@@ -8,12 +8,14 @@
 
 import UIKit
 import PromiseKit
-
+struct screenSize {
+    static let screenWidth = UIScreen.main.bounds.width
+    static let screenHeight = UIScreen.main.bounds.height
+}
 class SearchViewController: UIViewController {
   
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
     
+
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     var imageURLs = [URL]()
@@ -82,9 +84,9 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
         
         if indexPath.row == 0
         {
-            return CGSize(width: screenWidth, height: screenWidth/3)
+            return CGSize(width: screenSize.screenWidth, height: screenSize.screenWidth/3)
         }
-        return CGSize(width: screenWidth/3, height: screenWidth/3);
+        return CGSize(width: screenSize.screenWidth/3, height: screenSize.screenWidth/3);
 
     }
     

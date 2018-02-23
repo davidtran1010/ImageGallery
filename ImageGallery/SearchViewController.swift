@@ -9,7 +9,7 @@
 import UIKit
 import PromiseKit
 
-class ViewController: UIViewController {
+class SearchViewController: UIViewController {
   
     let screenWidth = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -17,15 +17,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     var imageURLs = [URL]()
-    
+    var selectedImage:UIImage?
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         searchBar.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
-        hideKeyboardWhenNotUsed()
+        //hideKeyboardWhenNotUsed()
         
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -40,16 +41,27 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return false
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "imageViewerSegue"{
+            if let destinationVC = segue.destination as? ImageViewerViewController{
+                destinationVC.image = selectedImage
+            }
+            
+        }
+    }
 }
 // Define functions of Searchbar
-extension ViewController:UISearchBarDelegate{
+extension SearchViewController:UISearchBarDelegate{
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         imageCollectionView.isHidden = true
         let keyword = searchBar.text!
         firstly {
-            ServiceManager.shared.searchImage(with: keyword)
+            ServiceManager.shared.searchImage(with: keyword,count: 50)
         }
         .then{ urls -> Void in
             for url in urls{
@@ -64,7 +76,7 @@ extension ViewController:UISearchBarDelegate{
  
 }
 // Define functions of UICollectionview
-extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         
@@ -86,14 +98,23 @@ extension ViewController:UICollectionViewDelegate,UICollectionViewDataSource,UIC
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("cell \(indexPath.item) selected")
+        let selectedCell = collectionView.cellForItem(at: indexPath) as! ImageCollectionViewCell
+        selectedImage = selectedCell.imageView.image
+        performSegue(withIdentifier: "imageViewerSegue", sender: nil)
+    }
     
 }
-extension ViewController{
-    // Hide Keyboard Function when click on view
-    func hideKeyboardWhenNotUsed(){
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tap)
+extension SearchViewController:UIScrollViewDelegate{
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dismissKeyboard()
     }
+    // Hide Keyboard Function when click on view
+//    func hideKeyboardWhenNotUsed(){
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+//        view.addGestureRecognizer(tap)
+//    }
     @objc func dismissKeyboard()
     {
         view.endEditing(true)

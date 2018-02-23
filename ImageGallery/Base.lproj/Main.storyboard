@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HCx-Q1-hei">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="C84-mS-zYP">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,57 +10,70 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Navigation Controller-->
+        <scene sceneID="TyC-5A-5mV">
+            <objects>
+                <navigationController id="C84-mS-zYP" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KHA-XO-sdL">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="c4q-P5-4B7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1e7-3A-H9J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-951" y="732"/>
+        </scene>
+        <!--Image Viewer View Controller-->
         <scene sceneID="uK5-jC-hsa">
             <objects>
-                <viewController id="dsm-tV-dmR" sceneMemberID="viewController">
+                <viewController id="dsm-tV-dmR" customClass="ImageViewerViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sB9-MI-QF8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bSV-iz-6cU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" red="0.97654827830575619" green="1" blue="0.84502222794817572" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QZZ-na-llS" firstAttribute="trailing" secondItem="bSV-iz-6cU" secondAttribute="trailing" id="49l-1c-SUA"/>
+                            <constraint firstItem="bSV-iz-6cU" firstAttribute="top" secondItem="QZZ-na-llS" secondAttribute="top" id="E8u-sl-dai"/>
+                            <constraint firstItem="QZZ-na-llS" firstAttribute="bottom" secondItem="bSV-iz-6cU" secondAttribute="bottom" id="Uql-ZQ-MH5"/>
+                            <constraint firstItem="bSV-iz-6cU" firstAttribute="leading" secondItem="QZZ-na-llS" secondAttribute="leading" id="z0e-6t-YVi"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="QZZ-na-llS"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="downloads" id="jmj-7Z-4Ky"/>
+                    <connections>
+                        <outlet property="imageView" destination="bSV-iz-6cU" id="htH-rj-0ps"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bS-Jf-8yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137" y="868"/>
         </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="SD5-Tn-ofp">
-            <objects>
-                <tabBarController id="HCx-Q1-hei" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="v07-6x-yBu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="pyw-n8-P0U"/>
-                        <segue destination="dsm-tV-dmR" kind="relationship" relationship="viewControllers" id="MEl-SK-Z0V"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uST-gr-SEc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-747" y="217"/>
-        </scene>
-        <!--View Controller-->
+        <!--Flickr Search-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SearchViewController" customModule="ImageGallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="Search Image" translatesAutoresizingMaskIntoConstraints="NO" id="vP0-e8-MAI">
-                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="5gu-lB-XYg">
                                 <rect key="frame" x="0.0" y="62" width="375" height="542"/>
                             </activityIndicatorView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hkz-J5-oJS">
-                                <rect key="frame" x="0.0" y="76" width="375" height="542"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="547"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BXu-eI-Egc">
                                     <size key="itemSize" width="125" height="118"/>
@@ -109,15 +122,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="qI1-sD-4OX"/>
+                    <navigationItem key="navigationItem" title="Flickr Search" id="cUm-Xv-F0P"/>
                     <connections>
                         <outlet property="imageCollectionView" destination="Hkz-J5-oJS" id="4cr-tk-rbi"/>
                         <outlet property="loadIndicator" destination="5gu-lB-XYg" id="gE2-Mr-Cev"/>
                         <outlet property="searchBar" destination="vP0-e8-MAI" id="dl4-iJ-fjY"/>
+                        <segue destination="dsm-tV-dmR" kind="show" identifier="imageViewerSegue" id="XCL-aS-c3F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="131.78410794602701"/>
+            <point key="canvasLocation" x="185" y="18"/>
         </scene>
     </scenes>
 </document>

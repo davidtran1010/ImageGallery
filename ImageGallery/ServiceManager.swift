@@ -23,11 +23,11 @@ class ServiceManager{
         FlickrKit.shared().initialize(withAPIKey: APIInfo.key, sharedSecret: APIInfo.secret)
     }
     
-     func searchImage(with keyword:String) ->Promise<[URL]> {
+    func searchImage(with keyword:String,count:Int) ->Promise<[URL]> {
         let flickrSearch = FKFlickrPhotosSearch()
         flickrSearch.text = keyword
         var photoURLs = [URL]()
-        flickrSearch.per_page = "30"
+        flickrSearch.per_page = "\(count)"
         return Promise{ fulfill, reject in
             FlickrKit.shared().call(flickrSearch) { (response, error) -> Void in
                 if (response != nil) {

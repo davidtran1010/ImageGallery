@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ImageViewerViewController: UIViewController {
-
+    var imageIndex:Int?
     var image:UIImage?
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
@@ -22,10 +23,21 @@ class ImageViewerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let image = image{
-            imageView.image = image
+        DispatchQueue.main.async {
+            if let image = self.image{
+                self.imageView.image = image
+            }
         }
         
+        //DispatchQueue.main.async {
+            let url = ServiceManager.shared.fetchImageHighResolution(index: self.imageIndex!)
+            print(url)
+            
+            self.imageView.sd_setImage(with: url, placeholderImage: self.image, options: [.avoidAutoSetImage], completed: { (image, error, cache, url) in
+                self.image = image
+                self.imageView.image = image
+            })
+        //}
         // Do any additional setup after loading the view.
     }
 

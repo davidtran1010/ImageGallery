@@ -18,11 +18,15 @@ struct APIInfo{
 class ServiceManager{
     
     static let shared = ServiceManager()
-    
+    var photoArray = [[String: Any]]()
     init() {
         FlickrKit.shared().initialize(withAPIKey: APIInfo.key, sharedSecret: APIInfo.secret)
     }
-    
+    func fetchImageHighResolution(index:Int) -> URL{
+        let photo = photoArray[index]
+        let photoURL = FlickrKit.shared().photoURL(for: .large1024, photoID: String(describing: photo["id"]!), server: String(describing: photo["server"]!), secret: String(describing: photo["secret"]!), farm: String(describing: photo["farm"]!))
+        return photoURL
+    }
     func searchImage(with keyword:String,count:Int) ->Promise<[URL]> {
         let flickrSearch = FKFlickrPhotosSearch()
         flickrSearch.text = keyword
@@ -35,8 +39,10 @@ class ServiceManager{
                     // Pull out the photo urls from the results
                     let topPhotos = response!["photos"] as! [String: Any]
                     let photoArray = topPhotos["photo"] as! [[String: Any]]
+                    self.photoArray = photoArray
                     for photoDictionary in photoArray {
-                        let photoURL = FlickrKit.shared().photoURL(for: .large1600, fromPhotoDictionary: photoDictionary)
+                        //let photo = FlickrKit.shared().
+                        let photoURL = FlickrKit.shared().photoURL(for: .small240, fromPhotoDictionary: photoDictionary)
                         photoURLs.append(photoURL)
                     }
                     fulfill(photoURLs)

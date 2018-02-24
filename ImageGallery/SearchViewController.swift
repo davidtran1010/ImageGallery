@@ -15,11 +15,12 @@ struct screenSize {
 class SearchViewController: UIViewController {
   
     
-
+    @IBOutlet weak var searchOptionView: UIView!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     var imageURLs = [URL]()
     var selectedImage:UIImage?
+    var selectedIndex:Int?
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     override func viewDidLoad() {
@@ -45,8 +46,12 @@ class SearchViewController: UIViewController {
     }
     
     func setupTabbarNavigation(){
-        
+        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptionsForSearch))
 
+    }
+    @objc
+    func showOptionsForSearch() {
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -60,6 +65,7 @@ class SearchViewController: UIViewController {
         if segue.identifier == "imageViewerSegue"{
             if let destinationVC = segue.destination as? ImageViewerViewController{
                 destinationVC.image = selectedImage
+                destinationVC.imageIndex = selectedIndex!
             }
             
         }
@@ -111,6 +117,8 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("cell \(indexPath.item) selected")
+        
+        selectedIndex = indexPath.item
         let selectedCell = collectionView.cellForItem(at: indexPath) as! ImageCollectionViewCell
         selectedImage = selectedCell.imageView.image
         performSegue(withIdentifier: "imageViewerSegue", sender: nil)

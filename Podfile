@@ -9,6 +9,7 @@ target 'ImageGallery' do
   pod 'FlickrKit'
   pod 'Kingfisher', '~> 4.0'
   pod 'PromiseKit', '~> 4.5'
+  pod 'SDWebImage', '~> 4.0'
   target 'ImageGalleryTests' do
     inherit! :search_paths
     # Pods for testing

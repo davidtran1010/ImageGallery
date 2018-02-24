@@ -30,15 +30,24 @@ class SearchViewController: UIViewController {
         imageCollectionView.delegate = self
         //hideKeyboardWhenNotUsed()
         
-        
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
         //layout.itemSize = CGSize(width: screenWidth/3, height: screenWidth/3)
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         imageCollectionView!.collectionViewLayout = layout
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        
+        print("Search view show")
+        self.tabBarController?.navigationItem.title = "Flickr Search"
+    }
+    
+    func setupTabbarNavigation(){
+        
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

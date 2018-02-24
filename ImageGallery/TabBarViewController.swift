@@ -1,31 +1,19 @@
 //
-//  ImageViewerViewController.swift
+//  TabBarViewController.swift
 //  ImageGallery
 //
-//  Created by DavidTran on 2/23/18.
+//  Created by DavidTran on 2/24/18.
 //  Copyright © 2018 DavidTran. All rights reserved.
 //
 
 import UIKit
 
-class ImageViewerViewController: UIViewController {
+class TabBarViewController: UITabBarController {
 
-    var image:UIImage?
-    @IBOutlet weak var imageView: UIImageView!
-    @IBAction func downloadImage(_ sender: UIBarButtonItem) {
-        
-    }
-    
-    override func viewDidLayoutSubviews() {
-        self.tabBarController?.navigationItem.title = "Viewer"
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let image = image{
-            imageView.image = image
-        }
-        
+        self.tabBarController?.navigationController?.title = "Flickr"
         // Do any additional setup after loading the view.
     }
 
@@ -34,6 +22,9 @@ class ImageViewerViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//        guard let items = tabBar.items else { return }
+//        print("the selected index is : \(String(describing: items.index(of: item)))")    }
 
     /*
     // MARK: - Navigation

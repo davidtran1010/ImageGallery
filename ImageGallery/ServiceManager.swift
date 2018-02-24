@@ -36,7 +36,7 @@ class ServiceManager{
                     let topPhotos = response!["photos"] as! [String: Any]
                     let photoArray = topPhotos["photo"] as! [[String: Any]]
                     for photoDictionary in photoArray {
-                        let photoURL = FlickrKit.shared().photoURL(for: .small240, fromPhotoDictionary: photoDictionary)
+                        let photoURL = FlickrKit.shared().photoURL(for: .large1600, fromPhotoDictionary: photoDictionary)
                         photoURLs.append(photoURL)
                     }
                     fulfill(photoURLs)

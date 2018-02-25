@@ -71,7 +71,15 @@ class SearchViewController: UIViewController {
 }
 // Define functions of Searchbar
 extension SearchViewController:UISearchBarDelegate{
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        self.searchBar.showsCancelButton = true
+        return true
+    }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard()
+        self.searchBar.showsCancelButton = false
+    }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         imageCollectionView.isHidden = true
         let keyword = searchBar.text!
@@ -124,14 +132,12 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     
 }
 extension SearchViewController:UIScrollViewDelegate{
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         dismissKeyboard()
+        self.searchBar.showsCancelButton = false
     }
-    // Hide Keyboard Function when click on view
-//    func hideKeyboardWhenNotUsed(){
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-//        view.addGestureRecognizer(tap)
-//    }
+
     @objc func dismissKeyboard()
     {
         view.endEditing(true)

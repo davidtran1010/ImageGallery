@@ -237,6 +237,7 @@
                         <outlet property="imageCollectionView" destination="Hkz-J5-oJS" id="4cr-tk-rbi"/>
                         <outlet property="loadIndicator" destination="5gu-lB-XYg" id="gE2-Mr-Cev"/>
                         <outlet property="searchBar" destination="vP0-e8-MAI" id="dl4-iJ-fjY"/>
+                        <outlet property="searchBarTopConstraint" destination="SD0-1H-iZN" id="dwm-Qn-QeB"/>
                         <segue destination="dsm-tV-dmR" kind="show" identifier="imageViewerSegue" id="XCL-aS-c3F"/>
                     </connections>
                 </viewController>

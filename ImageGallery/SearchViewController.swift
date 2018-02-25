@@ -15,12 +15,16 @@ struct screenSize {
 class SearchViewController: UIViewController {
   
     
+    @IBOutlet weak var searchBarTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchOptionView: UIView!
     @IBOutlet weak var loadIndicator: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     var imageURLs = [URL]()
     var selectedImage:UIImage?
     var selectedIndex:Int?
+    //private var lastContentOffset: CGFloat = 0
+    private var islastScrollUp = true
+    var lastContentOffset:CGFloat = 0
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     override func viewDidLoad() {
@@ -38,6 +42,7 @@ class SearchViewController: UIViewController {
         
         print("Search view show")
         self.tabBarController?.navigationItem.title = "Flickr Search"
+        self.searchBar.isHidden = false
     }
     func setupCollectionView() {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -132,11 +137,32 @@ extension SearchViewController:UICollectionViewDelegate,UICollectionViewDataSour
     
 }
 extension SearchViewController:UIScrollViewDelegate{
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         dismissKeyboard()
         self.searchBar.showsCancelButton = false
+        
+        let bottomOffset = scrollView.contentSize.height - scrollView.bounds.height
+        
+        guard scrollView.contentOffset.y < bottomOffset  else {
+            return
+        }
+        
+        guard scrollView.contentOffset.y > 0 else {
+            searchBarTopConstraint.constant = 0
+            return
+        }
+        
+        let offsetDiff = scrollView.contentOffset.y - lastContentOffset
+        
+        let unsafeNewConstant = searchBarTopConstraint.constant + (offsetDiff > 0 ? -abs(offsetDiff) : abs(offsetDiff))
+        let minConstant:CGFloat = -searchBar.frame.height
+        let maxConstant:CGFloat = 0
+        
+        searchBarTopConstraint.constant = max(minConstant, min(maxConstant, unsafeNewConstant))
+        
+        lastContentOffset = scrollView.contentOffset.y
     }
+
 
     @objc func dismissKeyboard()
     {

@@ -20,6 +20,8 @@
 		0C9E976720400D1E00856E26 /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9E976620400D1E00856E26 /* ImageViewerViewController.swift */; };
 		0CDB706620416E4200C7A252 /* DownloadedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB706520416E4200C7A252 /* DownloadedViewController.swift */; };
 		0CDB706820416F6200C7A252 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB706720416F6200C7A252 /* TabBarViewController.swift */; };
+		0CDB706A2041B7B800C7A252 /* ImageRealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB70692041B7B800C7A252 /* ImageRealmModel.swift */; };
+		0CDB706C2041BC1D00C7A252 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDB706B2041BC1D00C7A252 /* RealmService.swift */; };
 		172224FD2D368494DD465B18 /* Pods_ImageGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 904B29AB7F6CD1C1D95801E8 /* Pods_ImageGallery.framework */; };
 		B2636D41832E4AA1991E5D1A /* Pods_ImageGalleryTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01DCEEF1EBEC1F96831913D2 /* Pods_ImageGalleryTests.framework */; };
 		BE23BCC46D43E0D2C2E90225 /* Pods_ImageGalleryUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAC8A01295D31A61BB409CD2 /* Pods_ImageGalleryUITests.framework */; };
@@ -63,6 +65,8 @@
 		0C9E976620400D1E00856E26 /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
 		0CDB706520416E4200C7A252 /* DownloadedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedViewController.swift; sourceTree = "<group>"; };
 		0CDB706720416F6200C7A252 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		0CDB70692041B7B800C7A252 /* ImageRealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRealmModel.swift; sourceTree = "<group>"; };
+		0CDB706B2041BC1D00C7A252 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		1090F82FEA78F15D1D60E9DA /* Pods-ImageGalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageGalleryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ImageGalleryTests/Pods-ImageGalleryTests.release.xcconfig"; sourceTree = "<group>"; };
 		281B07AFB9A9B844154A72B6 /* Pods-ImageGalleryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageGalleryTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageGalleryTests/Pods-ImageGalleryTests.debug.xcconfig"; sourceTree = "<group>"; };
 		776E4A84C99F94D36DEE80F3 /* Pods-ImageGalleryUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageGalleryUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ImageGalleryUITests/Pods-ImageGalleryUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,17 +131,19 @@
 			isa = PBXGroup;
 			children = (
 				0C9E9731203FD27200856E26 /* AppDelegate.swift */,
-				0C9E9733203FD27200856E26 /* SearchViewController.swift */,
 				0C9E9735203FD27200856E26 /* Main.storyboard */,
 				0C9E973B203FD27200856E26 /* Assets.xcassets */,
 				0C9E973D203FD27200856E26 /* LaunchScreen.storyboard */,
 				0C9E9740203FD27200856E26 /* Info.plist */,
 				0C9E9738203FD27200856E26 /* ImageGallery.xcdatamodeld */,
 				0C9E9762203FD88C00856E26 /* ServiceManager.swift */,
+				0C9E9733203FD27200856E26 /* SearchViewController.swift */,
 				0C9E9764203FF39700856E26 /* ImageCollectionViewCell.swift */,
 				0C9E976620400D1E00856E26 /* ImageViewerViewController.swift */,
 				0CDB706520416E4200C7A252 /* DownloadedViewController.swift */,
 				0CDB706720416F6200C7A252 /* TabBarViewController.swift */,
+				0CDB70692041B7B800C7A252 /* ImageRealmModel.swift */,
+				0CDB706B2041BC1D00C7A252 /* RealmService.swift */,
 			);
 			path = ImageGallery;
 			sourceTree = "<group>";
@@ -347,14 +353,20 @@
 				"${BUILT_PRODUCTS_DIR}/FlickrKit/FlickrKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlickrKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -482,6 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0CDB706A2041B7B800C7A252 /* ImageRealmModel.swift in Sources */,
 				0CDB706820416F6200C7A252 /* TabBarViewController.swift in Sources */,
 				0C9E976720400D1E00856E26 /* ImageViewerViewController.swift in Sources */,
 				0C9E9734203FD27200856E26 /* SearchViewController.swift in Sources */,
@@ -490,6 +503,7 @@
 				0CDB706620416E4200C7A252 /* DownloadedViewController.swift in Sources */,
 				0C9E973A203FD27200856E26 /* ImageGallery.xcdatamodeld in Sources */,
 				0C9E9763203FD88C00856E26 /* ServiceManager.swift in Sources */,
+				0CDB706C2041BC1D00C7A252 /* RealmService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

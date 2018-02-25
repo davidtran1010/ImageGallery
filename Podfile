@@ -10,6 +10,8 @@ target 'ImageGallery' do
   pod 'Kingfisher', '~> 4.0'
   pod 'PromiseKit', '~> 4.5'
   pod 'SDWebImage', '~> 4.0'
+  pod 'RealmSwift'
+  pod 'Toast-Swift', '~> 3.0.1'
   target 'ImageGalleryTests' do
     inherit! :search_paths
     # Pods for testing

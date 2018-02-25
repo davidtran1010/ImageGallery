@@ -31,23 +31,20 @@ class SearchViewController: UIViewController {
         imageCollectionView.delegate = self
         //hideKeyboardWhenNotUsed()
         
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
-        //layout.itemSize = CGSize(width: screenWidth/3, height: screenWidth/3)
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        imageCollectionView!.collectionViewLayout = layout
+        setupCollectionView()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         
         print("Search view show")
         self.tabBarController?.navigationItem.title = "Flickr Search"
     }
-    
-    func setupTabbarNavigation(){
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Options", style: .plain, target: self, action: #selector(showOptionsForSearch))
-
+    func setupCollectionView() {
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        imageCollectionView!.collectionViewLayout = layout
     }
     @objc
     func showOptionsForSearch() {
@@ -66,6 +63,7 @@ class SearchViewController: UIViewController {
             if let destinationVC = segue.destination as? ImageViewerViewController{
                 destinationVC.image = selectedImage
                 destinationVC.imageIndex = selectedIndex!
+                destinationVC.isFetchFullResolution = true
             }
             
         }

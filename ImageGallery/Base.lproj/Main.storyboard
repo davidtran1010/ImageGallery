@@ -81,6 +81,7 @@
                     <tabBarItem key="tabBarItem" systemItem="downloads" id="1YE-T8-XaL"/>
                     <connections>
                         <outlet property="imageCollectionView" destination="bfq-Bq-dG2" id="Jca-Ka-BSz"/>
+                        <segue destination="dsm-tV-dmR" kind="show" identifier="downloadedImageViewerSegue" id="5LA-HZ-85Y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cgl-3n-OXf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -114,17 +115,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bSV-iz-6cU">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0hO-VB-8MW">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.97654827830575619" green="1" blue="0.84502222794817572" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bSV-iz-6cU">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="bSV-iz-6cU" secondAttribute="trailing" id="16z-2h-uaV"/>
+                                    <constraint firstItem="bSV-iz-6cU" firstAttribute="leading" secondItem="0hO-VB-8MW" secondAttribute="leading" id="FEq-yQ-7hc"/>
+                                    <constraint firstAttribute="bottom" secondItem="bSV-iz-6cU" secondAttribute="bottom" id="NVY-5O-GoM"/>
+                                    <constraint firstItem="bSV-iz-6cU" firstAttribute="centerY" secondItem="0hO-VB-8MW" secondAttribute="centerY" id="T65-EH-pZI"/>
+                                    <constraint firstItem="bSV-iz-6cU" firstAttribute="top" secondItem="0hO-VB-8MW" secondAttribute="top" id="VHn-XO-KqJ"/>
+                                    <constraint firstItem="bSV-iz-6cU" firstAttribute="centerX" secondItem="0hO-VB-8MW" secondAttribute="centerX" id="cie-9L-MLj"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="QZZ-na-llS" firstAttribute="trailing" secondItem="bSV-iz-6cU" secondAttribute="trailing" id="49l-1c-SUA"/>
-                            <constraint firstItem="bSV-iz-6cU" firstAttribute="top" secondItem="QZZ-na-llS" secondAttribute="top" id="E8u-sl-dai"/>
-                            <constraint firstItem="QZZ-na-llS" firstAttribute="bottom" secondItem="bSV-iz-6cU" secondAttribute="bottom" id="Uql-ZQ-MH5"/>
-                            <constraint firstItem="bSV-iz-6cU" firstAttribute="leading" secondItem="QZZ-na-llS" secondAttribute="leading" id="z0e-6t-YVi"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="width" secondItem="QZZ-na-llS" secondAttribute="width" id="2Nt-L0-Hek"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="leading" secondItem="QZZ-na-llS" secondAttribute="leading" id="8M7-TT-I9E"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="trailing" secondItem="QZZ-na-llS" secondAttribute="trailing" id="IVo-jq-QtP"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="centerY" secondItem="QZZ-na-llS" secondAttribute="centerY" id="Imm-wq-Qnc"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="top" secondItem="QZZ-na-llS" secondAttribute="top" id="Ngq-Qb-xzd"/>
+                            <constraint firstAttribute="bottom" secondItem="0hO-VB-8MW" secondAttribute="bottom" id="aQa-LL-JNs"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="height" secondItem="QZZ-na-llS" secondAttribute="height" id="dUt-gw-5jt"/>
+                            <constraint firstItem="0hO-VB-8MW" firstAttribute="centerX" secondItem="QZZ-na-llS" secondAttribute="centerX" id="qJ5-hM-RXV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="QZZ-na-llS"/>
                     </view>
@@ -138,11 +156,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="bSV-iz-6cU" id="htH-rj-0ps"/>
+                        <outlet property="scrollView" destination="0hO-VB-8MW" id="cT0-Hc-EvW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2bS-Jf-8yy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137" y="868"/>
+            <point key="canvasLocation" x="1112.8" y="-9.4452773613193415"/>
         </scene>
         <!--Flickr Search-->
         <scene sceneID="tne-QT-ifu">
@@ -225,45 +244,11 @@
             </objects>
             <point key="canvasLocation" x="192.80000000000001" y="-9.4452773613193415"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="BaW-AH-6Tn">
-            <objects>
-                <viewController id="xLf-2c-2qd" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zDp-4M-Zwp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="XvW-Yf-ZZZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="986" y="-803"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ahm-Oy-A7u">
-            <objects>
-                <viewController id="lEO-5A-xkR" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="miO-aT-TQn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrP-b0-e0A">
-                                <rect key="frame" x="166" y="20" width="94" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CTp-UX-8u5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1029.5999999999999" y="-151.57421289355324"/>
-        </scene>
     </scenes>
     <resources>
         <image name="DownloadIcon" width="32" height="32"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="5LA-HZ-85Y"/>
+    </inferredMetricsTieBreakers>
 </document>

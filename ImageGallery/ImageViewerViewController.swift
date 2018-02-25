@@ -8,13 +8,32 @@
 
 import UIKit
 import SDWebImage
+import Toast_Swift
 
-class ImageViewerViewController: UIViewController {
+class ImageViewerViewController: UIViewController,UIScrollViewDelegate {
     var imageIndex:Int?
     var image:UIImage?
+    var isFetchFullResolution = false
+    
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBAction func downloadImage(_ sender: UIBarButtonItem) {
         
+        // Save image to local
+        let imageData = UIImagePNGRepresentation(image!)
+        let fileManager = FileManager.default
+        let convertedDateTime = getCurrentDateTime().replacingOccurrences(of: "/", with: "_")
+        let imageName = "image_" + convertedDateTime + ".png"
+        let imagePath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(imageName)
+        
+        fileManager.createFile(atPath: imagePath, contents: imageData, attributes: nil)
+    
+        // Save path to realm DB
+        let realmModel = ImageRealmModel(name: imageName, path: imagePath)
+        RealmService.shared.create(realmModel)
+
+         self.view.makeToast("Finished downloading photo.")
     }
     
     override func viewDidLayoutSubviews() {
@@ -22,14 +41,23 @@ class ImageViewerViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.scrollView.minimumZoomScale = 1.0
+        self.scrollView.maximumZoomScale = 6.0
+        scrollView.delegate = self
+        
+//        RealmService.shared.realm.observe { (notification, realm) in
+//            self.view.makeToast("Finished downloading photo.")
+//        }
+        
         DispatchQueue.main.async {
             if let image = self.image{
                 self.imageView.image = image
             }
         }
         
-        //DispatchQueue.main.async {
+        // Fetch full res image if view image from search view
+        if isFetchFullResolution{
             let url = ServiceManager.shared.fetchImageHighResolution(index: self.imageIndex!)
             print(url)
             
@@ -37,16 +65,34 @@ class ImageViewerViewController: UIViewController {
                 self.image = image
                 self.imageView.image = image
             })
-        //}
-        // Do any additional setup after loading the view.
+        }
+        // Hide down icon if view image from downloaded view
+        else{
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem()
+        }
     }
 
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return self.imageView
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    func getCurrentDateTime() -> String {
+        let date = Date()
+        let calendar = Calendar.current
+        let day = calendar.component(.day, from: date)
+        let month = calendar.component(.month, from: date)
+        let year = calendar.component(.year, from: date)
+        
+        let hours = calendar.component(.hour, from: date)
+        let minutes = calendar.component(.minute, from: date)
+        let seconds = Int(calendar.component(.second, from: date))
+        
+        return "\(day)/\(month)/\(year)_\(hours)_\(minutes)_\(seconds)"
+    }
     /*
     // MARK: - Navigation
 

@@ -14,7 +14,13 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     func configure(imageURL:URL) {
-     
-        imageView.kf.setImage(with: imageURL)
+        let urlString = imageURL.absoluteString
+        print(urlString)
+        if urlString.contains("http"){
+            imageView.kf.setImage(with: imageURL)
+        }else{
+            imageView.image = UIImage(contentsOfFile: urlString)
+        }
+        
     }
 }

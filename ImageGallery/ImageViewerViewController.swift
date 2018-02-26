@@ -9,11 +9,13 @@
 import UIKit
 import SDWebImage
 import Toast_Swift
+import RealmSwift
 
 class ImageViewerViewController: UIViewController,UIScrollViewDelegate {
     var imageIndex:Int?
     var image:UIImage?
     var isFetchFullResolution = false
+    var notificationToken:NotificationToken?
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
@@ -31,13 +33,24 @@ class ImageViewerViewController: UIViewController,UIScrollViewDelegate {
     
         // Save path to realm DB
         let realmModel = ImageRealmModel(name: imageName, path: imagePath)
+       
         RealmService.shared.create(realmModel)
 
-         self.view.makeToast("Finished downloading photo.")
+         //self.view.makeToast("Finished downloading photo.")
     }
     
     override func viewDidLayoutSubviews() {
         self.tabBarController?.navigationItem.title = "Viewer"
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        let realm = RealmService.shared.realm
+        notificationToken = realm.observe { (notification, realm) in
+            print("Finished downloading photo.")
+            self.view.makeToast("Finished downloading photo.")
+        }
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        notificationToken?.invalidate()
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +58,6 @@ class ImageViewerViewController: UIViewController,UIScrollViewDelegate {
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 6.0
         scrollView.delegate = self
-        
-//        RealmService.shared.realm.observe { (notification, realm) in
-//            self.view.makeToast("Finished downloading photo.")
-//        }
         
         DispatchQueue.main.async {
             if let image = self.image{
